@@ -1,6 +1,6 @@
 BLEACH: District 67 – A Text-Based Adventure
 
-A C++ text-based adventure game** inspired by the world of BLEACH.  
+A C++ text-based adventure game inspired by the world of BLEACH.  
 You play as Jun, a wandering soul navigating the dangers of District 67.  
 Choices matter — your path determines your fate.
 

@@ -2478,11 +2478,3 @@ int main() {
     
     return 0;
 }
-
-/* 
-to do: 
-1. debug for any errors
-2. add design
-3. improve ending checks (add design and more dramatic lines)
-4. check for improper spacing
-*/

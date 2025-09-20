@@ -17,12 +17,15 @@ int main() {
     int choice; // used for choosing among safe, mid, or risky in scenes 2 to 10
     int turn = 0; // increment for each turn
     int useItem; // used for choosing a special item in a turn
-    int itemNum = 1; // counter for numbering
+    int action; // used for choosing an action
+    int itemNum = 1; // counter for numbering special items
+    int actionNum = 1; // counter for numbering actions
 
     int rapierItem = 0;
     int netItem = 0;
     int sunglassesItem = 0;
     int rustbiteItem = 0;
+    int attack = 0;
 
     bool hasRapier = false;
     bool hasNet = false;
@@ -469,10 +472,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -486,7 +485,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -497,40 +496,58 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
+
+    
 
     // Boss attacks player (only if boss is alive and not skipped)
     if(bossHP > 0 && playerHP > 0) {
@@ -591,8 +608,8 @@ int main() {
 
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
-    itemNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = 0; // reset the value of items to 0 in every turn
+    itemNum = actionNum = 1; // reset to 1 every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -604,10 +621,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -621,7 +634,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -632,39 +645,55 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -726,8 +755,8 @@ int main() {
 
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
-    itemNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = 0; // reset the value of items to 0 in every turn
+    itemNum = actionNum = 1; // reset to 1 every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -739,10 +768,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -756,7 +781,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -767,39 +792,55 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -861,8 +902,8 @@ int main() {
 
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
-    itemNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = 0; // reset the value of items to 0 in every turn
+    itemNum = actionNum = 1; // reset to 1 every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -874,10 +915,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -891,7 +928,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -902,39 +939,55 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -996,8 +1049,8 @@ int main() {
 
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
-    itemNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = 0; // reset the value of items to 0 in every turn
+    itemNum = actionNum = 1; // reset to 1 every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -1009,10 +1062,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -1026,7 +1075,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -1037,39 +1086,55 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
-        bossHP -=  playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        bossHP -= playerDMG;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -1131,8 +1196,8 @@ int main() {
 
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
-    itemNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = 0; // reset the value of items to 0 in every turn
+    itemNum = actionNum = 1; // reset to 1 every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -1144,10 +1209,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -1161,7 +1222,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -1172,39 +1233,55 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -1266,8 +1343,8 @@ int main() {
 
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
-    itemNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = 0; // reset the value of items to 0 in every turn
+    itemNum = actionNum = 1; // reset to 1 every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -1279,10 +1356,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -1296,7 +1369,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -1307,39 +1380,55 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -1401,8 +1490,8 @@ int main() {
 
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
-    itemNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = 0; // reset the value of items to 0 in every turn
+    itemNum = actionNum = 1; // reset to 1 every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -1414,10 +1503,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -1431,7 +1516,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -1442,39 +1527,55 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -1536,8 +1637,8 @@ int main() {
 
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
-    itemNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = 0; // reset the value of items to 0 in every turn
+    itemNum = actionNum = 1; // reset to 1 every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -1549,10 +1650,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -1566,7 +1663,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -1577,39 +1674,55 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -1672,8 +1785,8 @@ int main() {
 
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
-    itemNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = 0; // reset the value of items to 0 in every turn
+    itemNum = actionNum = 1; // reset to 1 every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -1685,10 +1798,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -1702,7 +1811,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -1713,39 +1822,55 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -1808,8 +1933,8 @@ int main() {
 
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
-    itemNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = 0; // reset the value of items to 0 in every turn
+    itemNum = actionNum = 1; // reset to 1 every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -1821,10 +1946,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -1838,7 +1959,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -1849,39 +1970,55 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -1944,8 +2081,8 @@ int main() {
 
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
-    itemNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = 0; // reset the value of items to 0 in every turn
+    itemNum = actionNum = 1; // reset to 1 every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -1957,10 +2094,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -1974,7 +2107,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -1985,39 +2118,55 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -2080,8 +2229,8 @@ int main() {
 
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
-    itemNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = 0; // reset the value of items to 0 in every turn
+    itemNum = actionNum = 1; // reset to 1 every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -2093,10 +2242,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -2110,7 +2255,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -2121,39 +2266,55 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -2216,8 +2377,8 @@ int main() {
 
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
-    itemNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = 0; // reset the value of items to 0 in every turn
+    itemNum = actionNum = 1; // reset to 1 every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -2229,10 +2390,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -2246,7 +2403,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -2257,39 +2414,55 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -2352,8 +2525,8 @@ int main() {
 
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
-    itemNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = 0; // reset the value of items to 0 in every turn
+    itemNum = actionNum = 1; // reset to 1 every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -2365,10 +2538,6 @@ int main() {
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
-    if (hasRapier) {
-        cout << "\t" << itemNum << ". ⚔️ Divine Rapier" << endl;
-        rapierItem = itemNum++;
-    }
     if (hasNet) {
         cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
         netItem = itemNum++;
@@ -2382,7 +2551,7 @@ int main() {
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
-        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl << endl;
+        cout << "\t Note: 💠 Schala's Amulet will automatically activate if your HP drops to 0 or below." << endl;
     }
 
     // if no special items were obtained
@@ -2393,39 +2562,55 @@ int main() {
         cin >> useItem;
         cin.ignore();
 
-        if (useItem == rapierItem && hasRapier) {
-            bossHP -= 275;
-            hasRapier = false;
-            cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
-        }
-        else if (useItem == netItem && hasNet) {
+        if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
         }
         else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
         }
         else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
         }
     }
 
     cout << "Press any key to continue...";
     getline(cin, key);
 
+    cout << "\nChoose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
+        cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
+        attack = actionNum++;
+    }
+
+    if (hasRapier) {
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        rapierItem = actionNum++;
+    }
+
+    cout << "Enter your action: ";
+    cin >> action;
+    cin.ignore();
+
+    if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\nYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+    }else if (action == rapierItem && hasRapier) {
+        bossHP -= 275;
+        hasRapier = false;
+        cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
+    }else {
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -2478,3 +2663,4 @@ int main() {
     
     return 0;
 }
+*/

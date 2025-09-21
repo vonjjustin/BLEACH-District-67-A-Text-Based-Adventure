@@ -48,7 +48,7 @@ int main() {
     cout << "One night, a terrible presence descends - a rogue Hollow stalks the district." << endl;
     cout << "You must prepare yourself for the coming battle." << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
-    cout << "Press any key to continue...";
+    cout << "Press any key to begin your journey...";
     getline(cin, key);   
 
     // Scene 1 - Prologue (District 67)
@@ -77,7 +77,7 @@ int main() {
     cout << "\t1. Safe - \"Just a little strength will do.\" (+4 ATK)" << endl;
     cout << "\t2. Mid - \"I\'ll take whatever you can give.\" (+1 ATK, +1 DEF, +7 HP)" << endl;
     cout << "\t3. Risky - \"Give me everything you have!\" (+11 ATK, +3 DEF, -5 HP)" << endl;
-    cout << "Enter your choice: ";
+    cout << "Enter your choice (1-3): ";
     cin >> choice;
     cin.ignore();
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -119,7 +119,7 @@ int main() {
     cout << "\t1. Safe - \"Just give me something simple.\" (+4 ATK)" << endl;
     cout << "\t2. Mid - \"Make me sturdier.\" (+1 DEF, -2 HP)" << endl;
     cout << "\t3. Risky - \"Push the limits!\" (+5 ATK, +3 DEF, -5 HP, gain Rustbite: -6 Boss DEF)" << endl;
-    cout << "Enter your choice: ";
+    cout << "Enter your choice (1-3): ";
     cin >> choice;
     cin.ignore();
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -161,7 +161,7 @@ int main() {
     cout << "\t1. Safe - \"A small blessing, please.\" (+4 ATK)" << endl;
     cout << "\t2. Mid - \"I\'ll take the charm.\" (Gain Net, -2 HP)" << endl;
     cout << "\t3. Risky - \"I want true power!\" (+9 ATK, -4 HP)" << endl;
-    cout << "Enter your choice: ";
+    cout << "Enter your choice (1-3): ";
     cin >> choice;
     cin.ignore();
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -203,7 +203,7 @@ int main() {
     cout << "\t1. Safe - \"Something reliable.\" (+11 ATK)" << endl;
     cout << "\t2. Mid - \"The Armlet of Mordiggan...\" (+15 ATK, -1 DEF, -2 HP)" << endl;
     cout << "\t3. Risky - \"What's your strongest weapon?\" (Gain Divine Rapier, -10 HP, -3 DEF, -3 ATK)" << endl;
-    cout << "Enter your choice: ";
+    cout << "Enter your choice (1-3): ";
     cin >> choice;
     cin.ignore();
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -245,7 +245,7 @@ int main() {
     cout << "\t1. Safe - \"A minor boost.\" (+4 ATK)" << endl;
     cout << "\t2. Mid - \"Something stronger.\" (+8 ATK, -2 HP)" << endl;
     cout << "\t3. Risky - \"Everything you've got!\" (+15 ATK, -2 DEF, -5 HP)" << endl;
-    cout << "Enter your choice: ";
+    cout << "Enter your choice (1-3): ";
     cin >> choice;
     cin.ignore();
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -287,7 +287,7 @@ int main() {
     cout << "\t1. Safe - \"I'll do my best.\" (+2 ATK)" << endl;
     cout << "\t2. Mid - \"I'll push myself harder.\" (+1 ATK, +1 DEF, -1 HP)" << endl;
     cout << "\t3. Risky - \"I'll protect everyone at any cost!\" (+8 ATK, +3 DEF, -5 HP)" << endl;
-    cout << "Enter your choice: ";
+    cout << "Enter your choice (1-3): ";
     cin >> choice;
     cin.ignore();
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -329,7 +329,7 @@ int main() {
     cout << "\t1. Safe - \"A steady path will do.\" (+5 ATK)" << endl;
     cout << "\t2. Mid - \"I'll endure the strain.\" (+7 ATK, -2 HP)" << endl;
     cout << "\t3. Risky - \"I'll fight with your spirit!\" (Gain Sunglasses, +2 DEF, -5 HP)" << endl;
-    cout << "Enter your choice: ";
+    cout << "Enter your choice (1-3): ";
     cin >> choice;
     cin.ignore();
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -371,7 +371,7 @@ int main() {
     cout << "\t1. Safe - \"A small charm.\" (+2 ATK)" << endl;
     cout << "\t2. Mid - \"That one... it glows faintly.\" (Gain Schala's Amulet, -3 HP)" << endl;
     cout << "\t3. Risky - \"I want the strongest one!\" (+11 ATK, +2 DEF, -7 HP)" << endl;
-    cout << "Enter your choice: ";
+    cout << "Enter your choice (1-3): ";
     cin >> choice;
     cin.ignore();
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -412,7 +412,7 @@ int main() {
     cout << "\t1. Safe - \"Patch me up completely.\" (Set HP to 50)" << endl;
     cout << "\t2. Mid - \"I'll take the sharper blades.\" (+12 ATK, -3 HP)" << endl;
     cout << "\t3. Risky - \"Load me with everything!\" (+23 ATK, +2 HP)" << endl;
-    cout << "Enter your choice: ";
+    cout << "Enter your choice (1-3): ";
     cin >> choice;
     cin.ignore();
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -525,7 +525,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -547,23 +546,23 @@ int main() {
         cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
     }
 
-    
-
     // Boss attacks player (only if boss is alive and not skipped)
     if(bossHP > 0 && playerHP > 0) {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -571,7 +570,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -587,13 +586,29 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
@@ -674,7 +689,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -701,16 +715,18 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -718,7 +734,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -734,13 +750,29 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
@@ -821,7 +853,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -848,16 +879,18 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -865,7 +898,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -881,13 +914,29 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
@@ -968,7 +1017,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -995,16 +1043,18 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -1012,7 +1062,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -1028,13 +1078,29 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
@@ -1115,7 +1181,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -1142,16 +1207,18 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -1159,7 +1226,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -1175,13 +1242,29 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
@@ -1262,7 +1345,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -1289,16 +1371,18 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -1306,7 +1390,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -1322,13 +1406,29 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
@@ -1409,7 +1509,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -1436,16 +1535,18 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -1453,7 +1554,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -1469,13 +1570,29 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
@@ -1556,7 +1673,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -1583,16 +1699,18 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -1600,7 +1718,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -1616,13 +1734,29 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
@@ -1703,7 +1837,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -1730,16 +1863,18 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -1747,7 +1882,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -1763,13 +1898,29 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
@@ -1851,7 +2002,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -1878,16 +2028,18 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -1895,7 +2047,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -1911,13 +2063,29 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
@@ -1999,7 +2167,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -2026,16 +2193,18 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -2043,7 +2212,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -2059,13 +2228,29 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
@@ -2147,7 +2332,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -2174,16 +2358,18 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -2191,7 +2377,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -2207,13 +2393,29 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
@@ -2295,7 +2497,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -2322,16 +2523,18 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -2339,7 +2542,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -2355,13 +2558,29 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
@@ -2443,7 +2662,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -2470,16 +2688,18 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -2487,7 +2707,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -2503,13 +2723,29 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
@@ -2591,7 +2827,6 @@ int main() {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
-
     if (hasRapier) {
         cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
         rapierItem = actionNum++;
@@ -2618,16 +2853,18 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "Boss attacks you for " << bossDMG << " damage!" << endl << endl;
+            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet activated! You were revived with 1 HP!" << endl << endl;
+                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "Boss attack skipped!" << endl << endl;
+            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
@@ -2635,7 +2872,7 @@ int main() {
     currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
     currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
 
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
     cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
 
     // Boss dialogue based on HP
@@ -2651,16 +2888,31 @@ int main() {
 
     // Ending check
     if(bossHP <= 0){ 
-        cout << "Victory: Jun slays Bjorne, shinigami arrive, Jun is invited to the Academy." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "🏆 VICTORY 🏆" << endl;
+        cout << "\tJun stands over Bjorne's fallen form, the Hollow's mask shattered." << endl;
+        cout << "\tAs dawn breaks, shinigami flash-step into the ruined street." << endl;
+        cout << "\tA captain nods: \"You fought bravely, Jun. The Academy awaits you.\"" << endl;
+        cout << "\tThe district cheers. Jun's legend begins." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(playerHP <= 0 ){ 
-        cout << "Defeat: Jun dies, but his stand delays Bjorne until shinigami finish it. Remembered as a hero." << endl; 
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "💀 DEFEAT 💀" << endl;
+        cout << "\tJun collapses, bloodied but defiant. Bjorne roars in frustration." << endl;
+        cout << "\tShinigami arrive in a blaze of light, finishing the Hollow." << endl;
+        cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }else if(turn > 15){
-        cout << "Fatigue: After 15 turns, Jun collapses. Shinigami arrive; the district survives. His courage becomes legend." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+        cout << "⏳ FATIGUE ENDING ⏳" << endl;
+        cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
+        cout << "\tBjorne prepares to strike, but shinigami flash in, saving the district." << endl;
+        cout << "\tJun's courage becomes legend, his name whispered with respect for generations." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
     }
     
     return 0;
 }
-*/

@@ -13,3 +13,5 @@ You will meet allies, enemies, and face choices that shape your survival.
 - Console-based gameplay (C++)  
 - Creative “default” responses for invalid choices  
 - Multiple characters and story paths
+
+Developed by: Von Justin L. Estayani   ZC11  BS Computer Science

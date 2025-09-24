@@ -1,5 +1,6 @@
 #include <iostream>
-#include <string>
+#include <algorithm>
+#include <limits>
 
 using namespace std;
 
@@ -34,14 +35,10 @@ int main() {
     bool hasRustbite = false;
     bool skipBossAttack = false;
 
-    string currentPlayerStat; // used to display current player stat
-    string specialItems; // used to display special items 
-    string currentBossStat; // used to display current boss stat
-    string key; // needed for "press any key to continue" function
-
     // Scene 0 - Introduction
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
-    cout << "BLEACH: District 67 - A Text-Based Adventure" << endl;
+    cout << "\t\t\t\t\t\tBLEACH: District 67 - A Text-Based Adventure" << endl;
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Disclaimer: This is a fan-made educational project. Bleach is created by Tite Kubo." << endl;
     cout << "All rights belong to their respective owners. For classroom use only." << endl << endl;
     cout << "You are Jun Arashi, a soul living in District 67 of Rukongai." << endl;
@@ -49,37 +46,40 @@ int main() {
     cout << "You must prepare yourself for the coming battle." << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to begin your journey...";
-    getline(cin, key);   
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');   
 
     // Scene 1 - Prologue (District 67)
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "District 67, outskirts of Rukongai." << endl << endl;
     cout << "Jun stands in a dark alley as screams echo through the streets." << endl;
-    cout << "The night sky trembles as a Hollow\'sroar shakes the rooftops." << endl;
+    cout << "The night sky trembles as a Hollow\'s roar shakes the rooftops." << endl;
     cout << "Jun clenches his fists - there is no running now." << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);   
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');   
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl << endl;
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
+    cout << "Current Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
+    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Press any key to continue...";
-    getline(cin, key);   
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');   
 
     // Scene 2 - The Saint (Hanae)
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Hanae, the district\'s wandering saint, approaches you." << endl;
     cout << "Hanae: \"You look pale, Jun. The night is cruel... let me bless you with light.\"" << endl;
-    cout << "Choose:" << endl;
+    cout << "Choose:" << endl; 
     cout << "\t1. Safe - \"Just a little strength will do.\" (+4 ATK)" << endl;
     cout << "\t2. Mid - \"I\'ll take whatever you can give.\" (+1 ATK, +1 DEF, +7 HP)" << endl;
     cout << "\t3. Risky - \"Give me everything you have!\" (+11 ATK, +3 DEF, -5 HP)" << endl;
     cout << "Enter your choice (1-3): ";
     cin >> choice;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     switch(choice){
@@ -93,23 +93,25 @@ int main() {
             playerATK += 11; playerDEF += 3; playerHP -= 5;
             break;
         default:
-            cout << "\t❌ Invalid Choice! You gained nothing from this encounter." << endl;
+            cout << "\t❌ Invalid Choice! Defaulting to the safe choice." << endl;
+            playerATK += 4;
             cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
             break;
     }
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    specialItems = "\t" + string(hasRapier ? "✅ " : "❌ ") + "⚔️ Divine Rapier" +
-               "\n\t" + string(hasNet ? "✅ " : "❌ ") + "🕸️ 90-Caliber Net" +
-               "\n\t" + string(hasSunglasses ? "✅ " : "❌ ") + "😎 Sunglasses" +
-               "\n\t" + string(hasAmulet ? "✅ " : "❌ ") + "💠 Schala's Amulet" +
-               "\n\t" + string(hasRustbite ? "✅ " : "❌ ") + "⚡ Rustbite Charge";
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Special Items:\n" << specialItems << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
+    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
+    cout << "Special Items:\n";
+    cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
+    cout << "\t" << (hasNet ? "✅ " : "❌ ") << "🕸️ 90-Caliber Net" << endl;
+    cout << "\t" << (hasSunglasses ? "✅ " : "❌ ") << "😎 Sunglasses" << endl;
+    cout << "\t" << (hasAmulet ? "✅ " : "❌ ") << "💠 Schala's Amulet" << endl;
+    cout << "\t" << (hasRustbite ? "✅ " : "❌ ") << "⚡ Rustbite Charge" << endl;
 
     cout << "\n══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     // Scene 3 - The Tinkerer (Riku)
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -121,7 +123,8 @@ int main() {
     cout << "\t3. Risky - \"Push the limits!\" (+5 ATK, +3 DEF, -5 HP, gain Rustbite: -6 Boss DEF)" << endl;
     cout << "Enter your choice (1-3): ";
     cin >> choice;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     switch(choice){
@@ -135,23 +138,25 @@ int main() {
             playerATK += 5; playerDEF += 3; playerHP -= 5; hasRustbite = true; // rustbite obtained (-6 boss DEF)
             break;
         default:
-            cout << "\t❌ Invalid Choice! You gained nothing from this encounter." << endl;
+            cout << "\t❌ Invalid Choice! Defaulting to the safe choice." << endl;
+            playerATK += 4;
             cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
             break;
     }
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    specialItems = "\t" + string(hasRapier ? "✅ " : "❌ ") + "⚔️ Divine Rapier" +
-               "\n\t" + string(hasNet ? "✅ " : "❌ ") + "🕸️ 90-Caliber Net" +
-               "\n\t" + string(hasSunglasses ? "✅ " : "❌ ") + "😎 Sunglasses" +
-               "\n\t" + string(hasAmulet ? "✅ " : "❌ ") + "💠 Schala's Amulet" +
-               "\n\t" + string(hasRustbite ? "✅ " : "❌ ") + "⚡ Rustbite Charge";
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Special Items:\n" << specialItems << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
+    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
+    cout << "Special Items:\n";
+    cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
+    cout << "\t" << (hasNet ? "✅ " : "❌ ") << "🕸️ 90-Caliber Net" << endl;
+    cout << "\t" << (hasSunglasses ? "✅ " : "❌ ") << "😎 Sunglasses" << endl;
+    cout << "\t" << (hasAmulet ? "✅ " : "❌ ") << "💠 Schala's Amulet" << endl;
+    cout << "\t" << (hasRustbite ? "✅ " : "❌ ") << "⚡ Rustbite Charge" << endl;
 
     cout << "\n══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     // Scene 4 - Sister Midori (Shrine)
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -163,7 +168,8 @@ int main() {
     cout << "\t3. Risky - \"I want true power!\" (+9 ATK, -4 HP)" << endl;
     cout << "Enter your choice (1-3): ";
     cin >> choice;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     switch(choice){
@@ -177,23 +183,25 @@ int main() {
             playerATK += 9; playerHP -= 4;
             break;
         default:
-            cout << "\t❌ Invalid Choice! You gained nothing from this encounter." << endl;
+            cout << "\t❌ Invalid Choice! Defaulting to the safe choice." << endl;
+            playerATK += 4;
             cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
             break;
     }
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    specialItems = "\t" + string(hasRapier ? "✅ " : "❌ ") + "⚔️ Divine Rapier" +
-               "\n\t" + string(hasNet ? "✅ " : "❌ ") + "🕸️ 90-Caliber Net" +
-               "\n\t" + string(hasSunglasses ? "✅ " : "❌ ") + "😎 Sunglasses" +
-               "\n\t" + string(hasAmulet ? "✅ " : "❌ ") + "💠 Schala's Amulet" +
-               "\n\t" + string(hasRustbite ? "✅ " : "❌ ") + "⚡ Rustbite Charge";
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Special Items:\n" << specialItems << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
+    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
+    cout << "Special Items:\n";
+    cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
+    cout << "\t" << (hasNet ? "✅ " : "❌ ") << "🕸️ 90-Caliber Net" << endl;
+    cout << "\t" << (hasSunglasses ? "✅ " : "❌ ") << "😎 Sunglasses" << endl;
+    cout << "\t" << (hasAmulet ? "✅ " : "❌ ") << "💠 Schala's Amulet" << endl;
+    cout << "\t" << (hasRustbite ? "✅ " : "❌ ") << "⚡ Rustbite Charge" << endl;
 
     cout << "\n══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     // Scene 5 - Yumi the Smuggler
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -205,7 +213,8 @@ int main() {
     cout << "\t3. Risky - \"What's your strongest weapon?\" (Gain Divine Rapier, -10 HP, -3 DEF, -3 ATK)" << endl;
     cout << "Enter your choice (1-3): ";
     cin >> choice;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     switch(choice){
@@ -219,23 +228,25 @@ int main() {
             playerATK -= 3; playerDEF -= 3; playerHP -= 10; hasRapier = true; // divine rapier obtained (deals 275 true damage ignoring boss DEF)
             break;
         default:
-            cout << "\t❌ Invalid Choice! You gained nothing from this encounter." << endl;
+            cout << "\t❌ Invalid Choice! Defaulting to the safe choice." << endl;
+            playerATK += 11;
             cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
             break;
     }
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    specialItems = "\t" + string(hasRapier ? "✅ " : "❌ ") + "⚔️ Divine Rapier" +
-               "\n\t" + string(hasNet ? "✅ " : "❌ ") + "🕸️ 90-Caliber Net" +
-               "\n\t" + string(hasSunglasses ? "✅ " : "❌ ") + "😎 Sunglasses" +
-               "\n\t" + string(hasAmulet ? "✅ " : "❌ ") + "💠 Schala's Amulet" +
-               "\n\t" + string(hasRustbite ? "✅ " : "❌ ") + "⚡ Rustbite Charge";
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Special Items:\n" << specialItems << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
+    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
+    cout << "Special Items:\n";
+    cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
+    cout << "\t" << (hasNet ? "✅ " : "❌ ") << "🕸️ 90-Caliber Net" << endl;
+    cout << "\t" << (hasSunglasses ? "✅ " : "❌ ") << "😎 Sunglasses" << endl;
+    cout << "\t" << (hasAmulet ? "✅ " : "❌ ") << "💠 Schala's Amulet" << endl;
+    cout << "\t" << (hasRustbite ? "✅ " : "❌ ") << "⚡ Rustbite Charge" << endl;
 
     cout << "\n══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     // Scene 6 - Kaji the Peddler
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -247,7 +258,8 @@ int main() {
     cout << "\t3. Risky - \"Everything you've got!\" (+15 ATK, -2 DEF, -5 HP)" << endl;
     cout << "Enter your choice (1-3): ";
     cin >> choice;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     switch(choice){
@@ -261,23 +273,25 @@ int main() {
             playerATK += 15; playerDEF -= 2; playerHP -= 5;
             break;
         default:
-            cout << "\t❌ Invalid Choice! You gained nothing from this encounter." << endl;
+            cout << "\t❌ Invalid Choice! Defaulting to the safe choice." << endl;
+            playerATK += 4;
             cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
             break;
     }
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    specialItems = "\t" + string(hasRapier ? "✅ " : "❌ ") + "⚔️ Divine Rapier" +
-               "\n\t" + string(hasNet ? "✅ " : "❌ ") + "🕸️ 90-Caliber Net" +
-               "\n\t" + string(hasSunglasses ? "✅ " : "❌ ") + "😎 Sunglasses" +
-               "\n\t" + string(hasAmulet ? "✅ " : "❌ ") + "💠 Schala's Amulet" +
-               "\n\t" + string(hasRustbite ? "✅ " : "❌ ") + "⚡ Rustbite Charge";
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Special Items:\n" << specialItems << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
+    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
+    cout << "Special Items:\n";
+    cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
+    cout << "\t" << (hasNet ? "✅ " : "❌ ") << "🕸️ 90-Caliber Net" << endl;
+    cout << "\t" << (hasSunglasses ? "✅ " : "❌ ") << "😎 Sunglasses" << endl;
+    cout << "\t" << (hasAmulet ? "✅ " : "❌ ") << "💠 Schala's Amulet" << endl;
+    cout << "\t" << (hasRustbite ? "✅ " : "❌ ") << "⚡ Rustbite Charge" << endl;
 
     cout << "\n══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     // Scene 7 - Aiko the Child
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -289,7 +303,8 @@ int main() {
     cout << "\t3. Risky - \"I'll protect everyone at any cost!\" (+8 ATK, +3 DEF, -5 HP)" << endl;
     cout << "Enter your choice (1-3): ";
     cin >> choice;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     switch(choice){
@@ -303,23 +318,25 @@ int main() {
             playerATK += 8; playerDEF += 3; playerHP -= 5;
             break;
         default:
-            cout << "\t❌ Invalid Choice! You gained nothing from this encounter." << endl;
+            cout << "\t❌ Invalid Choice! Defaulting to the safe choice." << endl;
+            playerATK += 2;
             cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
             break;
     }
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    specialItems = "\t" + string(hasRapier ? "✅ " : "❌ ") + "⚔️ Divine Rapier" +
-               "\n\t" + string(hasNet ? "✅ " : "❌ ") + "🕸️ 90-Caliber Net" +
-               "\n\t" + string(hasSunglasses ? "✅ " : "❌ ") + "😎 Sunglasses" +
-               "\n\t" + string(hasAmulet ? "✅ " : "❌ ") + "💠 Schala's Amulet" +
-               "\n\t" + string(hasRustbite ? "✅ " : "❌ ") + "⚡ Rustbite Charge";
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Special Items:\n" << specialItems << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
+    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
+    cout << "Special Items:\n";
+    cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
+    cout << "\t" << (hasNet ? "✅ " : "❌ ") << "🕸️ 90-Caliber Net" << endl;
+    cout << "\t" << (hasSunglasses ? "✅ " : "❌ ") << "😎 Sunglasses" << endl;
+    cout << "\t" << (hasAmulet ? "✅ " : "❌ ") << "💠 Schala's Amulet" << endl;
+    cout << "\t" << (hasRustbite ? "✅ " : "❌ ") << "⚡ Rustbite Charge" << endl;
 
     cout << "\n══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     // Scene 8 - Master Renga
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -331,7 +348,8 @@ int main() {
     cout << "\t3. Risky - \"I'll fight with your spirit!\" (Gain Sunglasses, +2 DEF, -5 HP)" << endl;
     cout << "Enter your choice (1-3): ";
     cin >> choice;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     switch(choice){
@@ -345,23 +363,25 @@ int main() {
             playerDEF += 2; playerHP -= 5; hasSunglasses = true; // sunglasses obtained (free skip 1 boss attack)
             break;
         default:
-            cout << "\t❌ Invalid Choice! You gained nothing from this encounter." << endl;
+            cout << "\t❌ Invalid Choice! Defaulting to the safe choice." << endl;
+            playerATK += 5;
             cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
             break;
     }
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    specialItems = "\t" + string(hasRapier ? "✅ " : "❌ ") + "⚔️ Divine Rapier" +
-               "\n\t" + string(hasNet ? "✅ " : "❌ ") + "🕸️ 90-Caliber Net" +
-               "\n\t" + string(hasSunglasses ? "✅ " : "❌ ") + "😎 Sunglasses" +
-               "\n\t" + string(hasAmulet ? "✅ " : "❌ ") + "💠 Schala's Amulet" +
-               "\n\t" + string(hasRustbite ? "✅ " : "❌ ") + "⚡ Rustbite Charge";
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Special Items:\n" << specialItems << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
+    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
+    cout << "Special Items:\n";
+    cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
+    cout << "\t" << (hasNet ? "✅ " : "❌ ") << "🕸️ 90-Caliber Net" << endl;
+    cout << "\t" << (hasSunglasses ? "✅ " : "❌ ") << "😎 Sunglasses" << endl;
+    cout << "\t" << (hasAmulet ? "✅ " : "❌ ") << "💠 Schala's Amulet" << endl;
+    cout << "\t" << (hasRustbite ? "✅ " : "❌ ") << "⚡ Rustbite Charge" << endl;
 
     cout << "\n══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     // Scene 9 - Mika the Charm-Sel
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -373,7 +393,8 @@ int main() {
     cout << "\t3. Risky - \"I want the strongest one!\" (+11 ATK, +2 DEF, -7 HP)" << endl;
     cout << "Enter your choice (1-3): ";
     cin >> choice;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     switch(choice){
@@ -387,23 +408,25 @@ int main() {
             playerATK += 11; playerDEF += 2; playerHP -= 7;
             break;
         default:
-            cout << "\t❌ Invalid Choice! You gained nothing from this encounter." << endl;
+            cout << "\t❌ Invalid Choice! Defaulting to the safe choice." << endl;
+            playerATK += 2;
             cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
             break;
     }
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    specialItems = "\t" + string(hasRapier ? "✅ " : "❌ ") + "⚔️ Divine Rapier" +
-               "\n\t" + string(hasNet ? "✅ " : "❌ ") + "🕸️ 90-Caliber Net" +
-               "\n\t" + string(hasSunglasses ? "✅ " : "❌ ") + "😎 Sunglasses" +
-               "\n\t" + string(hasAmulet ? "✅ " : "❌ ") + "💠 Schala's Amulet" +
-               "\n\t" + string(hasRustbite ? "✅ " : "❌ ") + "⚡ Rustbite Charge";
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Special Items:\n" << specialItems << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
+    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
+    cout << "Special Items:\n";
+    cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
+    cout << "\t" << (hasNet ? "✅ " : "❌ ") << "🕸️ 90-Caliber Net" << endl;
+    cout << "\t" << (hasSunglasses ? "✅ " : "❌ ") << "😎 Sunglasses" << endl;
+    cout << "\t" << (hasAmulet ? "✅ " : "❌ ") << "💠 Schala's Amulet" << endl;
+    cout << "\t" << (hasRustbite ? "✅ " : "❌ ") << "⚡ Rustbite Charge" << endl;
 
     cout << "\n══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
    // Scene 10 - Supply Cache
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
@@ -414,7 +437,8 @@ int main() {
     cout << "\t3. Risky - \"Load me with everything!\" (+23 ATK, +2 HP)" << endl;
     cout << "Enter your choice (1-3): ";
     cin >> choice;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     switch(choice){
@@ -428,31 +452,42 @@ int main() {
             playerATK += 23; playerHP += 2;
             break;
         default:
-            cout << "\t❌ Invalid Choice! You gained nothing from this encounter." << endl;
+            cout << "\t❌ Invalid Choice! Defaulting to the safe choice." << endl;
+            playerHP = 50;
             cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
             break;
     }
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    specialItems = "\t" + string(hasRapier ? "✅ " : "❌ ") + "⚔️ Divine Rapier" +
-               "\n\t" + string(hasNet ? "✅ " : "❌ ") + "🕸️ 90-Caliber Net" +
-               "\n\t" + string(hasSunglasses ? "✅ " : "❌ ") + "😎 Sunglasses" +
-               "\n\t" + string(hasAmulet ? "✅ " : "❌ ") + "💠 Schala's Amulet" +
-               "\n\t" + string(hasRustbite ? "✅ " : "❌ ") + "⚡ Rustbite Charge";
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Special Items:\n" << specialItems << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
+    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
+    cout << "Special Items:\n";
+    cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
+    cout << "\t" << (hasNet ? "✅ " : "❌ ") << "🕸️ 90-Caliber Net" << endl;
+    cout << "\t" << (hasSunglasses ? "✅ " : "❌ ") << "😎 Sunglasses" << endl;
+    cout << "\t" << (hasAmulet ? "✅ " : "❌ ") << "💠 Schala's Amulet" << endl;
+    cout << "\t" << (hasRustbite ? "✅ " : "❌ ") << "⚡ Rustbite Charge" << endl;
     cout << "\n══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     // Scene 11 - Boss Fight: Bjorne the Rogue Hollow
-
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
-    cout << "The ground splits. Bjorne, a towering Hollow, rises from the shadows." << endl;
-    cout << "Bjorne: \"Foolish soul… your resistance amuses me.\"" << endl;
+    cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
+    cout << "\t\t\t\t\t\t║ 🕷️🩸 BOSS FIGHT:BJORNE THE ROGUE HOLLOW 🩸🕷️ ║" << endl;
+    cout << "\t\t\t\t\t\t╚═══════════════════════════════════════╝" << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
-    cout << "Press any key to continue...";
-    getline(cin, key);
+    cout << "The ground trembles violently as a monstrous shadow rises, eclipsing the moonlight." << endl;
+    cout << "A chilling roar echoes through District 67, sending shivers down your spine." << endl;
+    cout << "Bjorne, the Rogue Hollow, emerges—towering, mask cracked, claws dripping with cursed energy." << endl << endl;
+    cout << "Bjorne: \"Foolish soul... your resistance amuses me.\"" << endl;
+    cout << "Bjorne: \"Tonight, you face oblivion. Show me your strength, if you dare!\"" << endl << endl;
+    cout << "🔥 The air crackles with tension. The crowd watches from shattered windows, holding their breath." << endl;
+    cout << "🎮 [GAME TIP] Use your special items wisely—one wrong move could mean defeat!" << endl;
+    cout << "💀 The battle for District 67 begins. Only legends survive the night..." << endl;
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
+    cout << "Press any key to start the fight...";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -464,24 +499,27 @@ int main() {
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -490,60 +528,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -551,27 +589,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -602,7 +643,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
@@ -614,7 +655,7 @@ int main() {
     
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -624,28 +665,31 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -654,60 +698,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -715,27 +759,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -766,7 +813,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
@@ -778,7 +825,7 @@ int main() {
     
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -788,28 +835,31 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -818,60 +868,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -879,27 +929,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -930,7 +983,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
@@ -942,7 +995,7 @@ int main() {
     
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -952,28 +1005,31 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -982,60 +1038,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -1043,27 +1099,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -1094,7 +1153,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
@@ -1106,7 +1165,7 @@ int main() {
     
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -1116,28 +1175,31 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -1146,60 +1208,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -1207,27 +1269,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -1258,7 +1323,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
@@ -1270,7 +1335,7 @@ int main() {
     
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -1280,28 +1345,31 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -1310,60 +1378,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -1371,27 +1439,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -1422,7 +1493,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
@@ -1434,7 +1505,7 @@ int main() {
     
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -1444,28 +1515,31 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -1474,60 +1548,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -1535,27 +1609,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -1586,7 +1663,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
@@ -1598,7 +1675,7 @@ int main() {
     
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -1608,28 +1685,31 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -1638,60 +1718,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -1699,27 +1779,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -1750,7 +1833,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
@@ -1762,7 +1845,7 @@ int main() {
     
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -1772,28 +1855,31 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -1802,60 +1888,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -1863,27 +1949,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -1914,7 +2003,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
@@ -1926,7 +2015,7 @@ int main() {
     
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -1937,28 +2026,31 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -1967,60 +2059,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -2028,27 +2120,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -2079,7 +2174,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
@@ -2091,7 +2186,7 @@ int main() {
     
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -2102,28 +2197,31 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -2132,60 +2230,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -2193,27 +2291,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -2244,7 +2345,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
@@ -2256,7 +2357,7 @@ int main() {
     
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -2267,28 +2368,31 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -2297,60 +2401,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -2358,27 +2462,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -2409,7 +2516,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
@@ -2421,7 +2528,7 @@ int main() {
     
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -2432,28 +2539,31 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -2462,60 +2572,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -2523,27 +2633,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -2574,7 +2687,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
@@ -2586,7 +2699,7 @@ int main() {
     
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -2597,28 +2710,31 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -2627,60 +2743,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -2688,27 +2804,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -2739,7 +2858,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;
@@ -2751,7 +2870,7 @@ int main() {
     
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "\t\t\t\t\t\t╔═══════════════════════════════════════╗" << endl;
@@ -2762,28 +2881,31 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = action = 0; // reset the value of items and action to 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "Current Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
     cout << "Choose a special item:" << endl;
     if (hasNet) {
-        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net" << endl;
+        cout << "\t" << itemNum << ". 🕸️ 90-Caliber Net (Skips the next boss attack)" << endl;
         netItem = itemNum++;
     }
     if (hasSunglasses) {
-        cout << "\t" << itemNum << ". 😎 Sunglasses" << endl;
+        cout << "\t" << itemNum << ". 😎 Sunglasses (Skips the next boss attack)" << endl;
         sunglassesItem = itemNum++;
     }
     if (hasRustbite) {
-        cout << "\t" << itemNum << ". ⚡ Rustbite Charge" << endl;
+        cout << "\t" << itemNum << ". ⚡ Rustbite Charge (Permanently reduces Bjorne\'s DEF by 6)" << endl;
         rustbiteItem = itemNum++;
     }
     if (hasAmulet) {
@@ -2792,60 +2914,60 @@ int main() {
 
     // if no special items were obtained
     if (itemNum == 1) {
-    cout << "\t❌ No special items obtained." << endl << endl;
+        cout << "\t❌ No special items obtained." << endl;
     } else {
         cout << "Enter your choice: ";
         cin >> useItem;
-        cin.ignore();
+        cin.clear(); // clear error flag or fail state on cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
         if (useItem == netItem && hasNet) {
             skipBossAttack = true;
             hasNet = false;
-            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == sunglassesItem && hasSunglasses) {
+            cout << "\t✅ You used the 90-Caliber Net! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == sunglassesItem && hasSunglasses) {
             skipBossAttack = true;
             hasSunglasses = false;
-            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl << endl;
-        }
-        else if (useItem == rustbiteItem && hasRustbite) {
+            cout << "\t✅ You wore the Sunglasses! The boss attack will be skipped this turn!" << endl;
+        }else if (useItem == rustbiteItem && hasRustbite) {
             bossDEF -= 6;
             hasRustbite = false;
-            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl << endl;
-        }
-        else {
-            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl << endl;
+            cout << "\t✅ You used the Rustbite Charge! Boss DEF permanently reduced by 6! Boss DEF: " << bossDEF << endl;
+        }else {
+            cout << "\t❌ Invalid choice. You did not use any special item this turn." << endl;
         }
     }
-
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
     cout << "Press any key to continue...";
-    getline(cin, key);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
 
-    cout << "\nChoose an action: " << endl;
+    cout << "Choose an action: " << endl;
     // Player attacks boss (only if player is alive)
     if(playerHP > 0 && bossHP > 0) {
         cout << "\t" << actionNum << ". 🗡️ Attack" << endl;
         attack = actionNum++;
     }
     if (hasRapier) {
-        cout << "\t" << actionNum << ". ⚔️ Divine Rapier" << endl;
+        cout << "\t" << actionNum << ". ⚔️ Divine Rapier (Deals 275 true damage (ignores DEF))" << endl;
         rapierItem = actionNum++;
     }
 
     cout << "Enter your action: ";
     cin >> action;
-    cin.ignore();
+    cin.clear(); // clear error flag or fail state on cin
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input from input buffer
 
     if(action == attack) {
         playerDMG = max(1, playerATK - bossDEF);
         bossHP -= playerDMG;
-        cout << "\tYou attack the boss for " << playerDMG << " damage!" << endl;
+        cout << "\t🗡️ You strike Bjorne, dealing " << playerDMG << " damage!" << endl;
     }else if (action == rapierItem && hasRapier) {
         bossHP -= 275;
         hasRapier = false;
         cout << "\t✅ You used the Divine Rapier! You dealt 275 true damage! Boss HP: " << bossHP << endl;
     }else {
-        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl << endl;
+        cout << "\t❌ Invalid choice. You did not choose any action this turn." << endl;
     }
 
     // Boss attacks player (only if boss is alive and not skipped)
@@ -2853,27 +2975,30 @@ int main() {
         if(skipBossAttack == false){
             bossDMG = max(1, bossATK - playerDEF);
             playerHP -= bossDMG;
-            cout << "☠️ Bjorne lunges at you, claws flashing!" << endl;
+            cout << "\n☠️ Bjorne lunges at you, claws flashing!" << endl;
             cout << "🩸 You take " << bossDMG << " damage!" << endl;
 
             // Check for Amulet
             if(hasAmulet && playerHP <= 0){
                 playerHP = 1; // restores to 1 HP
                 hasAmulet = false;
-                cout << "💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
+                cout << "\n💠 Schala's Amulet glows! You cheat death and revive with 1 HP!" << endl;
                 cout << "✨ The charm shatters in your hand." << endl;
             }
         } else {
-            cout << "🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
+            cout << "\n🕸️ You dodge as your item activates — Bjorne's attack is completely negated!" << endl;
         }
     }
 
     // Update Stats
-    currentPlayerStat = "\t- ❤️ Health Points: " + to_string(playerHP) + "\n\t- 🗡️ Attack Power: " + to_string(playerATK) + "\n\t- 🛡️ Defense Power: " + to_string(playerDEF);
-    currentBossStat = "\t- ❤️ Health Points: " + to_string(bossHP) + "\n\t- 🗡️ Attack Power: " + to_string(bossATK) + "\n\t- 🛡️ Defense Power: " + to_string(bossDEF);
-
-    cout << "\nCurrent Player Stats:\n" << currentPlayerStat << endl << endl;
-    cout << "Current Boss Stats:\n" << currentBossStat << endl << endl;
+    cout << "\nCurrent Player Stats:\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << playerDEF << endl;
+    cout << "\nCurrent Boss Stats:\n";
+    cout << "\t- ❤️ Health Points: " << bossHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << bossATK << endl;
+    cout << "\t- 🛡️ Defense Power: " << bossDEF << endl << endl;
 
     // Boss dialogue based on HP
     if(bossHP > 300){
@@ -2904,7 +3029,7 @@ int main() {
         cout << "\tJun's sacrifice echoes through District 67. He is remembered as a hero." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         return 0;
-    }else if(turn > 15){
+    }else if(turn >= 15){
         cout << "══════════════════════════════════════════════════════════════════════════════════" << endl;
         cout << "⏳ FATIGUE ENDING ⏳" << endl;
         cout << "\tAfter a grueling battle, Jun collapses from exhaustion." << endl;

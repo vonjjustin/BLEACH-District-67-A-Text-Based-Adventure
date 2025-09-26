@@ -665,7 +665,7 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attack to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -835,7 +835,7 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attack to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -1005,7 +1005,7 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attack to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -1175,7 +1175,7 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attack to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -1345,7 +1345,7 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attack to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -1515,7 +1515,7 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attack to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -1685,7 +1685,7 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attack to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -1855,7 +1855,7 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attack to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -2026,7 +2026,7 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attack to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -2197,7 +2197,7 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attack to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -2368,7 +2368,7 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attack to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -2539,7 +2539,7 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attack to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -2710,7 +2710,7 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attack to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -2881,7 +2881,7 @@ int main() {
     turn += 1; // increments turn to monitor number of turns for fatigue ending
     skipBossAttack = false; // reset boss attack skip at start of each turn
     itemNum = actionNum = 1; // reset to 1 every turn
-    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attackto 0 in every turn
+    rapierItem = netItem = sunglassesItem = rustbiteItem = attack = 0; // reset the value of items and attack to 0 in every turn
     cout << "Turn: " << turn << endl;
 
     // Display current stats
@@ -3041,4 +3041,3 @@ int main() {
     
     return 0;
 }
-

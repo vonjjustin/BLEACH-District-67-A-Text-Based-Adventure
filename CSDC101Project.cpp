@@ -99,8 +99,8 @@ int main() {
             break;
     }
     cout << "\nCurrent Player Stats:\n";
-    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
-    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
     cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
     cout << "Special Items:\n";
     cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
@@ -144,8 +144,8 @@ int main() {
             break;
     }
     cout << "\nCurrent Player Stats:\n";
-    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
-    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
     cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
     cout << "Special Items:\n";
     cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
@@ -189,8 +189,8 @@ int main() {
             break;
     }
     cout << "\nCurrent Player Stats:\n";
-    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
-    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
     cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
     cout << "Special Items:\n";
     cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
@@ -234,8 +234,8 @@ int main() {
             break;
     }
     cout << "\nCurrent Player Stats:\n";
-    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
-    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
     cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
     cout << "Special Items:\n";
     cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
@@ -279,8 +279,8 @@ int main() {
             break;
     }
     cout << "\nCurrent Player Stats:\n";
-    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
-    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
     cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
     cout << "Special Items:\n";
     cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
@@ -324,8 +324,8 @@ int main() {
             break;
     }
     cout << "\nCurrent Player Stats:\n";
-    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
-    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
     cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
     cout << "Special Items:\n";
     cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
@@ -369,8 +369,8 @@ int main() {
             break;
     }
     cout << "\nCurrent Player Stats:\n";
-    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
-    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
     cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
     cout << "Special Items:\n";
     cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
@@ -414,8 +414,8 @@ int main() {
             break;
     }
     cout << "\nCurrent Player Stats:\n";
-    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
-    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
     cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
     cout << "Special Items:\n";
     cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
@@ -458,8 +458,8 @@ int main() {
             break;
     }
     cout << "\nCurrent Player Stats:\n";
-    cout << "\t- ❤️ Health Points: " << playerHP << "\n";
-    cout << "\t- 🗡️ Attack Power: " << playerATK << "\n";
+    cout << "\t- ❤️ Health Points: " << playerHP << endl;
+    cout << "\t- 🗡️ Attack Power: " << playerATK << endl;
     cout << "\t- 🛡️ Defense Power: " << playerDEF << endl << endl;
     cout << "Special Items:\n";
     cout << "\t" << (hasRapier ? "✅ " : "❌ ") << "⚔️ Divine Rapier" << endl;
